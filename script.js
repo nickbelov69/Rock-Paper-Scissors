@@ -47,11 +47,16 @@ function playRound (computerPick, yourPick) {
     console.log(humanScore)
     console.log(computerScore)
     alert(`You: ${humanScore}; Computer ${computerScore}!`)
-    if (confirm("Next round?")) {
-        playRound(randomPick(), humanPick())
-    } else {
+
+    if ( humanScore === 5) {
+
+        alert(`You won you lucky bastard!`)
+    } else if (computerScore === 5 ) {
         alert (`Final score: ${humanScore}; Computer ${computerScore}!`)
-    }
+    } else {
+        (confirm("Next round?"))
+            playRound(randomPick(), humanPick())
+        }
 }
 
 playRound(computerPick, yourPick)
