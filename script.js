@@ -1,63 +1,51 @@
 
-const moves = ["Rock", "Paper", "Scissors"]
 let humanScore = 0
 let computerScore = 0
 
-function humanPick () {
-    let humanWord = prompt("What's your move? Rock, Paper, or  Scissors!")
-    humanWord = humanWord.toLowerCase()
-    while (
-        humanWord !== "rock" &&
-        humanWord !== "paper" &&
-        humanWord !== "scissors"
-        ) {
-        humanWord = prompt("What's your move? Rock, Paper, or  Scissors!")
-        humanWord = humanWord.toLowerCase()
-    }
-        return humanWord
-}
+
+const buttons = document.querySelectorAll("button")
+
 
 function randomPick () {
-    let computerpick = moves[Math.floor(Math.random() * moves.length)];
-    computerpick = computerpick.toLowerCase()
-    return computerpick
+    const moves = ["rock", "paper", "scissors"]
+    return moves[Math.floor(Math.random() * moves.length)];
 }
 
-let computerPick = randomPick()
-let yourPick =  humanPick()
 
+function playRound (playerSelection) {
+    const computerSelection = randomPick()
 
-function playRound (computerPick, yourPick) {
-    alert(`Computer picked ${computerPick}`)
-    if (yourPick === "rock" && computerPick === "scissors" ||
-        yourPick === "paper" && computerPick === "rock" ||
-        yourPick === "scissors" && computerPick === "paper") {
-        alert ("You won the round!")
+    console.log(`Player: ${playerSelection}`)
+    console.log(`Computer: ${computerSelection}`)
+
+    if (playerSelection === "rock" && computerSelection === "scissors" ||
+        playerSelection === "paper" && computerSelection === "rock" ||
+        playerSelection === "scissors" && computerSelection === "paper") {
         humanScore++
-    } else if (yourPick === computerPick) {
-        alert ("TIE!")
+        console.log("You win this round")
+    } else if (playerSelection === computerSelection) {
+       console.log("TIE!")
     }
-
-    if (yourPick === "rock" && computerPick === "paper" ||
-        yourPick === "paper" && computerPick === "scissors" ||
-        yourPick === "scissors" && computerPick === "rock") {
-        alert ("Computer won the round")
+    if (playerSelection === "rock" && computerSelection === "paper" ||
+        playerSelection === "paper" && computerSelection === "scissors" ||
+        playerSelection === "scissors" && computerSelection === "rock") {
         computerScore ++
+        console.log("Computer win this round");
     }
     console.log(humanScore)
     console.log(computerScore)
-    alert(`You: ${humanScore}; Computer ${computerScore}!`)
+    console.log(`You: ${humanScore}; Computer ${computerScore}!`)
 
-    if ( humanScore === 3) {
-
-        alert(`You won you lucky bastard!`)
-    } else if (computerScore === 3 ) {
-        alert (`Final score: ${humanScore}; Computer ${computerScore}!`)
-    } else {
-        (confirm("Next round?"))
-            playRound(randomPick(), humanPick())
-        }
+    if ( humanScore === 3 || computerScore === 3) {
+        console.log(humanScore === 3 ? "You won!" : "Computer won!");
+    }
+    return
 }
 
-playRound(computerPick, yourPick)
+buttons.forEach(button => {
+    button.addEventListener("click", () =>
+    playRound(button.textContent.toLowerCase()))
+})
+
+
 
